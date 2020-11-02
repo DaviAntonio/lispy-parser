@@ -1,4 +1,12 @@
-parser-gabarito.py
-.vscode
-__pycache__
+# Ignore Python cache
+__pycache__/*
+# Ignore Pytest cache
 .pytest-cache
+
+# Ignore Vim swap files
+*.swp
+# Ignore VSCode stuff
+.vscode
+
+# Ignore final test file
+parser-gabarito.py
