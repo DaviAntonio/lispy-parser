@@ -59,16 +59,10 @@ class LispyTransformer(InlineTransformer):
         return tk
 
     def quote(self, tk):
-        print(f"quoted tk = {tk}")
         return Symbol("quote")
 
     def quoted_atomic(self, *tk):
-        print(f"quoted_atomic tk = {tk}");
-        return tk
-
-    def quoted_s_expression(self, *tk):
-        print(f"quoted_s_expression tk = {tk}")
-        return list(tk)
+        return tuple(tk)
 
     def number(self, tk):
         return float(tk)
@@ -77,27 +71,13 @@ class LispyTransformer(InlineTransformer):
         return eval(tk)
 
     def symbol(self, tk):
-        print(f"symbol = {tk}")
         return Symbol(str(tk))
 
     def char(self, tk):
-        CHARS = {
-        "altmode": "\x1b",
-        "backnext": "\x1f",
-        "backspace": "\b",
-        "call": "SUB",
-        "linefeed": "\n",
-        "page": "\f",
-        "return": "\r",
-        "rubout": "\xc7",
-        "space": " ",
-        "tab": "\t",
-        }
-
         if (len(tk) > 3):
             tk = tk[2:].lower()
-            if tk in CHARS:
-                return CHARS[tk]
+            if tk in self.CHARS:
+                return self.CHARS[tk]
         return tk[2:]
 
     def boolean(self, tk):
@@ -107,11 +87,6 @@ class LispyTransformer(InlineTransformer):
             return False
 
     def s_expression(self, *tk):
-        print("s_expression")
-        for t in tk:
-            i = 0
-            print(f"tk[{i}] = {t}")
-            i += 1
         return list(tk)
 
 if __name__ == "__main__":
